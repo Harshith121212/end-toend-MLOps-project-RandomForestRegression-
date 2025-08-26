@@ -69,6 +69,9 @@ Docker Build: Automated image building and pushing
 Quality Gates: Code quality checks and testing
 Deployment: Ready for cloud deployment
 
+Data Drift Monitoring
+Evidently AI: Integrated Evidently AI for data drift monitoring
+
 ---
 
 
@@ -129,6 +132,10 @@ All experiments & models are logged using MLflow.
 
 ### Sample Prediction of model
 <img width="915" height="532" alt="Screenshot 2025-08-25 234025" src="https://github.com/user-attachments/assets/cbca2359-41fd-4cb3-8514-d3eda47c0897" />
+
+Data Drfit monitoring through Evidently AI
+<img width="1888" height="732" alt="Screenshot 2025-08-26 083508" src="https://github.com/user-attachments/assets/4b41d7a7-29de-48d8-bb69-ea0c3dc8dccc" />
+<img width="1734" height="768" alt="Screenshot 2025-08-26 083525" src="https://github.com/user-attachments/assets/d2788af8-8547-40ee-bc3c-066010f38fd5" />
 
 
 📊 Model Performance
