@@ -68,7 +68,9 @@ Automated Testing: pytest with coverage reporting
 Docker Build: Automated image building and pushing
 Quality Gates: Code quality checks and testing
 Deployment: Ready for cloud deployment
+
 ---
+
 
 ## 📂 Project Structure
 
