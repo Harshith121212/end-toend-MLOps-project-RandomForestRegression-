@@ -76,7 +76,44 @@ loaded_model = mlflow.pyfunc.load_model(model_info.model_uri)
 predictions = loaded_model.predict(X_test)
 print(predictions)
 
+import evidently
+from evidently import Dataset
+from evidently import DataDefinition
+from evidently import Report
+from evidently.presets import DataDriftPreset, DataSummaryPreset
+from evidently.ui.workspace import CloudWorkspace
+
+ws = CloudWorkspace(token="dG9rbgFPI5BqKwdMOITPff6jrfMVNwIrZcAuBgdBWgrWucLpqQBQbyA6yRe//T+FClx8kAs7ugJQyKJlS1HPBxGy/IK/fE9+iTy/QbHGFdu9Pk9Q3AxTsEzcQZQ59oGAhPQLSlgzhsyB5vXtW0Fi0w5Y4HuyYAJlIanv", url="https://app.evidently.cloud")
+
+project = ws.create_project(name="UsedCarPricePrediction", org_id='0198e453-938e-7b76-a3a2-6b50e5161c88')
+project.description = "Learning Data Drift monitoring"
+project.save()
 
 
+import pandas as pd
+
+constant_cols_train = [col for col in X_train.columns if X_train[col].std() == 0]
+constant_cols_val = [col for col in X_val.columns if X_val[col].std() == 0]
+
+
+cols_to_drop = list(set(constant_cols_train) | set(constant_cols_val))
+
+
+X_train_clean = X_train.drop(columns=cols_to_drop)
+X_val_clean = X_val.drop(columns=cols_to_drop)
+
+
+from evidently import Dataset, Report
+from evidently.presets import DataDriftPreset
+
+eval_data_1 = Dataset.from_pandas(X_train_clean)
+eval_data_2 = Dataset.from_pandas(X_val_clean)
+
+report = Report([DataDriftPreset()])
+my_eval = report.run(eval_data_1, eval_data_2)
+
+my_eval.save_html('drift_report.html')
+
+ws.add_run(project.id, my_eval, include_data=False)
 
 
